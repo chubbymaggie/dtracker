@@ -34,10 +34,10 @@ On Debian/Ubuntu systems, you should install ``build-essential`` meta-package wh
 make -C support -f makefile.pin
 ```
 
-**libdft:** The modified libdft is packed as a submodule of DataTracker. You need to disable Git's certificate checking to successfully retrieve it. Because libdft does not use [Pin's makefile infrastructure][pin-makefile] you need to set ``PIN_HOME`` environment variable before compiling it. 
+**libdft:** The modified libdft is packed as a submodule of DataTracker. You need to disable Git's certificate checking to successfully retrieve it. Because libdft does not use [Pin's makefile infrastructure][pin-makefile] you need to set ``PIN_ROOT`` environment variable before compiling it. E.g.:
 
 ```
-export PIN_HOME=$(pwd)/pin
+export PIN_ROOT=$(pwd)/pin
 GIT_SSL_NO_VERIFY=true git submodule update --init
 make support-libdft
 ```
@@ -97,6 +97,28 @@ In this repository also include a few sample programs we used for evaluating the
 make -C samples
 ```
 
+<!--
+Integration with SPADE
+-----------------------
+
+```
+<provenance> ::= <provenance> <element> | <element>
+<element> ::= <node> | <dependency>
+<node> ::= <node-type> <node-id> <annotation-list>
+<node-type> ::= type: <vertex-type>
+<vertex-type> ::= Agent | Process | Artifact
+<node-id> ::= id: <vertex-id>
+<vertex-id> ::= <unique-identifier>
+<annotation-list> ::= <annotation-list> <annotation> | <annotation>
+<annotation> ::= <key> : <value>
+<dependency> ::= <dependency-type> <start-node> <end-node>
+<annotation-list>
+<dependency-type> ::= type: <edge-type>
+<edge-type> ::= WasControlledBy | WasGeneratedBy | Used | WasTriggeredBy | WasDerivedFrom
+<start-node> ::= from: <vertex-id>
+<end-node> ::= to: <vertex-id>
+```
+-->
 
 [pin]: http://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool
 [pin-dl]: http://software.intel.com/en-us/articles/pintool-downloads

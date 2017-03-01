@@ -7,12 +7,14 @@
 # If the tool is built out of the kit, PIN_ROOT must be specified in the make invocation and point to the kit root.
 ifdef PIN_ROOT
 CONFIG_ROOT := $(PIN_ROOT)/source/tools/Config
+$(info ## Using Pin from: $$PIN_ROOT ($(PIN_ROOT)).)
 else
 PIN_ROOT := ./pin
 CONFIG_ROOT := $(PIN_ROOT)/source/tools/Config
+$(info ## Using local Pin ($(PIN_ROOT)).)
 endif
 include $(CONFIG_ROOT)/makefile.config
-include makefile.rules
+include Makefile.rules
 ifeq ($(wildcard $(TOOLS_ROOT)/Config/makefile.default.rules),)
 $(warning Cannot include makefile.default.rules. This is caused because Pin assumes our code is located under PIN_ROOT. Fix this by running:)
 $(warning sed -i.bak 's/PIN_ROOT :=/PIN_ROOT ?=/' "$(CONFIG_ROOT)/makefile.unix.config")
